@@ -1,0 +1,9 @@
+.vscode
+*.exe
+test.cpp
+*.dsp
+*.dsw
+*.ncb
+*.opt
+*.plg
+TEST1.cpp
