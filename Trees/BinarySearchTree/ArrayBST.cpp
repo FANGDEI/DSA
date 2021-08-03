@@ -63,26 +63,73 @@ void deleteVal(int root, int x) {
         }
     }
 }
+int findNum(int root) {
+    if (tree[root] == NIL) return 0;
+    int l = findNum(root*2);
+    int r = findNum(root*2+1);
+    return l + r + 1;
+}
+int findRoot(int root, int x) {
+    if (tree[root] == NIL) return -1;
+    else if (tree[root] > x) return findRoot(root*2, x);
+    else if (tree[root] < x) return findRoot(root*2+1, x);
+    else return root;
+}
+int getRank(int root, int x) {
+    if (tree[root] == NIL) return 0;
+    if (tree[root] == x) return findNum(root*2) + 1;
+    else if (tree[root] > x) return getRank(root*2, x);
+    else if (tree[root] < x) return findNum(root*2) + getRank(root*2+1, x) + 1;
+}
+int getX(int root, int x) {
+    if (tree[root] == NIL) return -1;
+    if (findNum(root*2) + 1 == x) return tree[root];
+    else if (findNum(root*2) + 1 > x) return getX(root*2, x);
+    else if (findNum(root*2) + 1 < x) return getX(root*2+1, x - findNum(root*2) - 1);
+}
+int findPredecessor(int root, int x) {
+    int newRoot = findRoot(root, x);
+    if (tree[newRoot*2] != NIL) return findMax(newRoot*2);
+    else {
+        if (tree[newRoot/2*2+1] == tree[newRoot]) return tree[newRoot/2];
+        else {
+            while (1) {
+                newRoot /= 2;
+                if (tree[newRoot/2*2+1] == tree[newRoot]) return tree[newRoot/2];
+            }
+        }
+    }
+}
+int findSuccessor(int root, int x) {
+    int newRoot = findRoot(root, x);
+    if (tree[newRoot*2+1] != NIL) return findMin(newRoot*2+1);
+    else {
+        if (tree[newRoot/2*2] == tree[newRoot]) return tree[newRoot/2];
+        else {
+            while (1) {
+                newRoot /= 2;
+                if (tree[newRoot/2*2] == tree[newRoot]) return tree[newRoot/2];
+            }
+        }
+    }
+}
 int main() {
     init();
+    insert(1, 38);
     insert(1, 45);
-    insert(1, 49);
-    insert(1, 12);
-    insert(1, 23);
-    insert(1, 99);
+    insert(1, 42);
+    insert(1, 24);
+    insert(1, 58);
+    insert(1, 30);
     insert(1, 67);
-    insert(1, 34);
-    insert(1, 43);
-    insert(1, 76);
     insert(1, 12);
-    insert(1, 45);
+    insert(1, 51);
     inorderTravelRecursively(1);
     cout << endl;
     // for (int i=1; i<=11; i++) cout << tree[i] << " ";
-    cout << findMax(1) << endl;
-    cout << findMin(1) << endl;
-    deleteVal(1, 12);
-    inorderTravelRecursively(1);
-    cout << endl;
+    cout << getRank(1, 45) << endl;
+    cout << getX(1, 7) << endl;
+    cout << findPredecessor(1, 30) << endl;
+    cout << findSuccessor(1, 30) << endl;
     return 0;
 }
