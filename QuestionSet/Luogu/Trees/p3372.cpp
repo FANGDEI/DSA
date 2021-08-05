@@ -22,7 +22,7 @@ void update(ll l, ll r, ll s, ll t, ll c, ll p) {
         return ;
     }
     ll m = s + (t - s >> 1);
-    if (b[p] && s != t) {
+    if (b[p]) {
         d[p << 1] += (m - s + 1) * b[p], d[p << 1 | 1] += (t - m) * b[p];
         b[p << 1] += b[p], b[p << 1 | 1] += b[p];
         b[p] = 0;
@@ -38,7 +38,7 @@ ll getsum(ll l, ll r, ll s, ll t, ll p) {
     ll m = s + (t - s >> 1), sum = 0;
     if (b[p]) {
         d[p << 1] += b[p] * (m - s + 1), d[p << 1 | 1] += b[p] * (t - m);
-        d[p << 1] += b[p], d[p << 1 | 1] += b[p];
+        b[p << 1] += b[p], b[p << 1 | 1] += b[p];
         b[p] = 0;
     }
     if (l <= m) sum += getsum(l, r, s, m, p << 1);
