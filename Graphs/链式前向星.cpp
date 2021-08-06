@@ -1,44 +1,34 @@
 #include <iostream>
-#include <vector>
-
+#include <algorithm>
+#include <cstring>
 using namespace std;
-
+const int N = 1e3 + 5;
+struct Edge {
+    int to;
+    int w;
+    int next;
+} e[N];
+int head[N], cnt;
 int n, m;
-vector<bool> vis;
-vector<int> head, nxt, to;
-
-void add(int u, int v) {
-  nxt.push_back(head[u]);
-  head[u] = to.size();
-  to.push_back(v);
+void add(int u, int v, int w) {
+    e[++cnt].to = v;
+    e[cnt].w = w;
+    e[cnt].next = head[u];
+    head[u] = cnt;
 }
-
-bool find_edge(int u, int v) {
-  for (int i = head[u]; ~i; i = nxt[i]) {  // ~i 表示 i != -1
-    if (to[i] == v) {
-      return true;
+void visit(int u) {
+    for (int i=head[u]; i!=-1; i=e[i].next) {
+        cout << u << " -------> " << e[i].to << " ---w: " << e[i].w << endl;
     }
-  }
-  return false;
 }
-
-void dfs(int u) {
-  if (vis[u]) return;
-  vis[u] = true;
-  for (int i = head[u]; ~i; i = nxt[i]) dfs(to[i]);
-}
-
 int main() {
-  cin >> n >> m;
-
-  vis.resize(n + 1, false);
-  head.resize(n + 1, -1);
-
-  for (int i = 1; i <= m; ++i) {
-    int u, v;
-    cin >> u >> v;
-    add(u, v);
-  }
-
-  return 0;
+    memset(head, -1, sizeof(head));
+    cin >> n >> m;
+    while (m--) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        add(u, v, w);
+    }
+    visit(1);
+    return 0;
 }
