@@ -1,17 +1,18 @@
 /*
  * @Author: FANG
  * @Date: 2021-08-22 23:25:42
- * @LastEditTime: 2021-08-22 23:44:47
+ * @LastEditTime: 2021-08-23 12:43:59
  * @Description: https://vjudge.ppsucxtt.cn/problem/POJ-2387
- * @FilePath: \DSA\QuestionSet\VirtualJudge\ShortPath\TiltheCowsComeHome.cpp
+ * @FilePath: \DSA\QuestionSet\VirtualJudge\ShortestPath\TiltheCowsComeHome.cpp
  */
 #include <iostream>
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
+#include <queue>
 using namespace std;
 const int INF = 0x3f3f3f3f;
-const int N = 2005;
+const int N = 1e4 + 5;
 struct Edge {
     int to;
     int w;
@@ -26,6 +27,7 @@ void add(int u, int v, int w) {
     edge[cnt].next = head[u];
     head[u] = cnt;
 }
+priority_queue<pair<int, int> > q;
 int main() {
     memset(head, -1, sizeof(head));
     memset(dis, INF, sizeof(dis));
@@ -38,11 +40,18 @@ int main() {
     }
     // vis[n] = true;
     dis[n] = 0;
-    for (int i=1; i<=n; i++) {
-        int min_val = INF, x = 0;
-        for (int j=1; j<=n; j++) if (!vis[j] and dis[j] < min_val) min_val = dis[j], x = j;
+    q.push(make_pair(0, n));
+    while (!q.empty()) {
+        int x = q.top().second;
+        q.pop();
+        if (vis[x]) continue;
         vis[x] = true;
-        for (int k=head[x]; ~k; k=edge[k].next) dis[edge[k].to] = min(dis[edge[k].to], dis[x] + edge[k].w);
+        for (int i=head[x]; ~i; i=edge[i].next) {
+            if (dis[edge[i].to] > dis[x] + edge[i].w) {
+                dis[edge[i].to] = dis[x] + edge[i].w;
+                q.push(make_pair(-dis[edge[i].to], edge[i].to));
+            }
+        }
     }
     cout << dis[1] << endl;
     return 0;
