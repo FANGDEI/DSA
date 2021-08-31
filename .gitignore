@@ -1,4 +1,7 @@
 .vscode
+*
+!*.cpp
+!*.md
 *.exe
 test.cpp
 *.dsp
@@ -7,3 +10,4 @@ test.cpp
 *.opt
 *.plg
 TEST1.cpp
+*.out
