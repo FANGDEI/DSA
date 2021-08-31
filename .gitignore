@@ -1,13 +1,8 @@
-.vscode
 *
+!.gitignore
 !*.cpp
 !*.md
-*.exe
+!*.c
+!*.h
 test.cpp
-*.dsp
-*.dsw
-*.ncb
-*.opt
-*.plg
-TEST1.cpp
-*.out
+.vscode
