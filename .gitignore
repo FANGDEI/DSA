@@ -1,8 +1,2 @@
-*
-!.gitignore
-!*.cpp
-!*.md
-!*.c
-!*.h
-test.cpp
 .vscode
+test.cpp
