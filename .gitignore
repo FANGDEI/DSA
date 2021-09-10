@@ -8,3 +8,5 @@ test.cpp
 *.exe
 TEST1.cpp
 test
+# ignore binary file
+bin
