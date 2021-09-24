@@ -1,3 +1,7 @@
+/*
+ * @Author: FANG
+ * @Date: 2021-08-10 15:12:53
+ */
 //P4392 [BOI2007]Sound 静音问题
 #include <iostream>
 #include <algorithm>
@@ -38,7 +42,7 @@ int main() {
     build(1, n, 1);
     bool flag = true;
     for (int i=1; i+m-1<=n; i++) {
-        minval = INF, maxval = -INF;
+        minval = INF, maxval = -INF; // 全局变量
         ask(i, i + m - 1, 1);
         if (maxval - minval <= c) {
             flag = false;
