@@ -12,7 +12,7 @@ struct Edge {
     int next;
 } edge[N * N];
 bool vis[N];
-int head[N], cnt, length[N], dis[N], nums[N], w[N];
+int head[N], cnt, group[N], dis[N], nums[N], w[N];
 int n, m, s, e;
 void add(int u, int v, int w) {
     edge[++cnt].to = v;
@@ -25,7 +25,7 @@ int main() {
     memset(dis, INF, sizeof(dis));
     memset(vis, false, sizeof(vis));
     cin >> n >> m >> s >> e;
-    for (int i = 0; i < n; i++) cin >> length[i];
+    for (int i = 0; i < n; i++) cin >> group[i];
     for (int i = 0; i < m; i++) {
         int u, v, w;
         cin >> u >> v >> w;
@@ -34,7 +34,7 @@ int main() {
     }
     dis[s] = 0;
     nums[s] = 1;
-    w[s] = length[s];
+    w[s] = group[s];
     for (int i = 0; i < n; i++) {
         int min_val = INF, x;
         for (int j = 0; j < n; j++) if (dis[j] < min_val && !vis[j]) min_val = dis[j], x = j;
@@ -45,11 +45,11 @@ int main() {
             if (dis[edge[k].to] > dis[x] + edge[k].w) {
                 dis[edge[k].to] = dis[x] + edge[k].w;
                 nums[edge[k].to] = nums[x];
-                w[edge[k].to] = w[x] + length[edge[k].to];
+                w[edge[k].to] = w[x] + group[edge[k].to];
             } else if (dis[edge[k].to] == dis[x] + edge[k].w) {
                 nums[edge[k].to] += nums[x];
-                if (w[x] + length[edge[k].to] > w[edge[k].to]) {
-                    w[edge[k].to] = w[x] + length[edge[k].to];
+                if (w[x] + group[edge[k].to] > w[edge[k].to]) {
+                    w[edge[k].to] = w[x] + group[edge[k].to];
                 } 
             }
         }
