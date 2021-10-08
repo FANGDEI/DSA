@@ -38,7 +38,6 @@ int main() {
     for (int i = 0; i < n; i++) {
         int min_val = INF, x;
         for (int j = 0; j < n; j++) if (dis[j] < min_val && !vis[j]) min_val = dis[j], x = j;
-        if (min_val == INF) break;
         vis[x] = true;
         for (int k = head[x]; ~k; k = edge[k].next) {
             int v = edge[k].to;
