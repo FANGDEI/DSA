@@ -8,5 +8,6 @@ test.cpp
 *.exe
 TEST1.cpp
 test
+Kruskal.cpp
 # ignore binary file
 bin
