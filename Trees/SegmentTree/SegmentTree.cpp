@@ -1,3 +1,7 @@
+/*
+ * @Author: FANG
+ * @Date: 2021-08-05 13:03:32
+ */
 #include <iostream>
 #include <algorithm>
 #include <cstdio>
@@ -43,7 +47,7 @@ void update(ll l, ll r, ll s, ll t, ll c, ll p) { // 区间修改
         return ;
     }
     ll m = s + (t - s >> 1);
-    if (b[p] && s != t) {
+    if (b[p] && s != t) { // 懒惰标记存在并且不是叶子节点
         d[p << 1] += b[p] * (m - s + 1), d[p << 1 | 1] += b[p] * (t - m);
         b[p << 1] += b[p], b[p << 1 | 1] += b[p];
         b[p] = 0;
